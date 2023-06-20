@@ -1,0 +1,50 @@
+html {
+    font-size: 62.5%; /*Esta linea hace que 1rem = 10px*/
+}
+
+body {
+    font-size: 16px; /*Esta linea hace que 1rem = 10px*/
+    font-family: 'Krub', sans-serif;
+}
+
+.titulo {
+    text-align: center;
+    font-size: 3.8rem;
+    }
+
+.titulo span {
+    font-size: 2rem;
+}
+
+.nav-bgd {
+background-color: #0097a7;
+margin: 0 auto;
+width: 130rem;
+height: 1,5rem;
+font-size: 2rem;
+
+border-radius: 30px;
+}
+
+.nav-princ {
+    display: flex;
+    justify-content: space-around;  
+    width: 130rem;
+    }
+
+.nav-princ a {
+    text-align: center;
+    text-decoration: none;
+    color: black;
+    padding: 5px;}
+
+.nav-princ a:hover {
+    background-color: #ffc107;
+    color: grey;
+  }
+
+
+
+
+
+
