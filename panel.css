@@ -77,6 +77,15 @@ select {
     box-shadow: 0 1.5rem 4rem rgb(23 59 70 / 9%);
 }
 
+.login-art {
+    display: block;
+    width: 4.5rem;
+    height: 4.5rem;
+    margin: 1.1rem 0 0.7rem;
+    border-radius: 0.8rem;
+    object-fit: cover;
+}
+
 .eyebrow {
     color: #087e8b;
     font-size: 0.75rem;
