@@ -75,6 +75,17 @@
                 </section>
             </div>
 
+            <section class="report-card insights-card" aria-labelledby="insights-title">
+                <h2 id="insights-title">Recomendaciones con IA</h2>
+                <p class="muted">Analizá las fuentes, páginas y dispositivos del período seleccionado para obtener ideas concretas para atraer más visitantes.</p>
+                <div class="insights-actions">
+                    <button id="analyze-button" class="button button-primary" type="button">Analizar período</button>
+                    <span id="insights-status" class="insights-status" role="status" aria-live="polite"></span>
+                </div>
+                <p id="insights-error" class="error" role="alert" aria-live="polite"></p>
+                <div id="insights-result" class="insights-result" aria-live="polite" hidden></div>
+            </section>
+
             <section class="report-card recent-card">
                 <h2>Actividad reciente</h2>
                 <div class="table-wrap">

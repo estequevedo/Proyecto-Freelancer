@@ -6,6 +6,10 @@
     const loginError = document.querySelector('#login-error');
     const dashboardError = document.querySelector('#dashboard-error');
     const periodSelect = document.querySelector('#period');
+    const analyzeButton = document.querySelector('#analyze-button');
+    const insightsStatus = document.querySelector('#insights-status');
+    const insightsError = document.querySelector('#insights-error');
+    const insightsResult = document.querySelector('#insights-result');
 
     async function request(url, options = {}) {
         const response = await fetch(url, {
@@ -100,6 +104,36 @@
         }
     }
 
+    async function analyzePeriod() {
+        const selectedPeriod = periodSelect.value;
+        analyzeButton.disabled = true;
+        insightsError.textContent = '';
+        insightsResult.textContent = '';
+        insightsResult.hidden = true;
+        insightsStatus.textContent = 'Analizando las estadísticas del período…';
+
+        try {
+            const data = await request('/api/analytics/insights', {
+                method: 'POST',
+                body: JSON.stringify({ days: Number(selectedPeriod) })
+            });
+            if (periodSelect.value === selectedPeriod) {
+                insightsResult.textContent = data.recommendations;
+                insightsResult.hidden = false;
+                insightsStatus.textContent = `Análisis de los últimos ${selectedPeriod} días.`;
+            }
+        } catch (error) {
+            if (error.status === 401) {
+                setAuthenticated(false);
+                return;
+            }
+            insightsStatus.textContent = '';
+            insightsError.textContent = error.message;
+        } finally {
+            analyzeButton.disabled = false;
+        }
+    }
+
     loginForm.addEventListener('submit', async (event) => {
         event.preventDefault();
         loginError.textContent = '';
@@ -129,7 +163,14 @@
     });
 
     document.querySelector('#refresh-button').addEventListener('click', loadAnalytics);
-    periodSelect.addEventListener('change', loadAnalytics);
+    analyzeButton.addEventListener('click', analyzePeriod);
+    periodSelect.addEventListener('change', () => {
+        insightsResult.hidden = true;
+        insightsResult.textContent = '';
+        insightsError.textContent = '';
+        insightsStatus.textContent = '';
+        loadAnalytics();
+    });
 
     request('/api/session')
         .then((session) => setAuthenticated(session.authenticated))

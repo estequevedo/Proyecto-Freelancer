@@ -238,6 +238,86 @@ function analyticsFor(days) {
     };
 }
 
+async function generateRecommendations(analytics, days) {
+    const apiKey = process.env.AI_GATEWAY_API_KEY;
+    if (!apiKey) {
+        const error = new Error('La función de IA no está configurada. El administrador debe agregar AI_GATEWAY_API_KEY en el entorno del servidor.');
+        error.status = 503;
+        throw error;
+    }
+
+    const model = process.env.AI_GATEWAY_MODEL || 'openai/gpt-4o-mini';
+    const summary = {
+        periodDays: days,
+        pageViews: analytics.pageViews,
+        interactions: analytics.interactions,
+        dailyVisits: analytics.daily,
+        topPages: analytics.pages.slice(0, 10),
+        trafficSources: analytics.sources.slice(0, 10),
+        devices: analytics.devices.slice(0, 10)
+    };
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), 30000);
+
+    try {
+        const response = await fetch('https://ai-gateway.vercel.sh/v1/chat/completions', {
+            method: 'POST',
+            headers: {
+                Authorization: `Bearer ${apiKey}`,
+                'Content-Type': 'application/json'
+            },
+            signal: controller.signal,
+            body: JSON.stringify({
+                model,
+                temperature: 0.4,
+                max_tokens: 700,
+                messages: [
+                    {
+                        role: 'system',
+                        content: 'Sos un analista de marketing digital para un sitio freelancer. Respondé en español rioplatense, con recomendaciones específicas, concretas y priorizadas para atraer más visitantes. Basate solo en las estadísticas proporcionadas; no inventes causas, datos ni resultados. Si hay pocos datos, aclaralo y sugerí qué medir. Considerá fuentes, páginas, dispositivos y tendencia diaria. Proponé entre 3 y 5 acciones ejecutables y explicá brevemente qué dato respalda cada una. No afirmes que las visitas representan usuarios únicos.'
+                    },
+                    {
+                        role: 'user',
+                        content: `Analizá estas estadísticas agregadas de los últimos ${days} días y recomendá acciones concretas para atraer más visitantes:\n${JSON.stringify(summary)}`
+                    }
+                ]
+            })
+        });
+
+        if (!response.ok) {
+            const error = new Error(response.status === 429
+                ? 'AI Gateway alcanzó un límite de solicitudes. Esperá un momento y probá de nuevo.'
+                : 'No se pudo obtener el análisis de AI Gateway. Revisá la clave y el modelo configurados.');
+            error.status = response.status === 429 ? 429 : 502;
+            throw error;
+        }
+
+        const result = await response.json();
+        const content = result?.choices?.[0]?.message?.content;
+        const recommendations = typeof content === 'string'
+            ? content.trim()
+            : Array.isArray(content)
+                ? content.map((part) => typeof part?.text === 'string' ? part.text : '').join('\n').trim()
+                : '';
+
+        if (!recommendations) {
+            const error = new Error('AI Gateway no devolvió recomendaciones. Probá de nuevo más tarde.');
+            error.status = 502;
+            throw error;
+        }
+        return recommendations.slice(0, 8000);
+    } catch (error) {
+        if (error.name === 'AbortError') {
+            const timeoutError = new Error('El análisis tardó demasiado. Probá de nuevo.');
+            timeoutError.status = 504;
+            throw timeoutError;
+        }
+        throw error;
+    } finally {
+        clearTimeout(timeout);
+    }
+}
+
 async function serveStatic(request, response, pathname) {
     const requestedPath = pathname === '/' ? '/index.html' : pathname;
     const isAsset = requestedPath.startsWith('/ultrax-assets/')
@@ -394,6 +474,30 @@ async function handleRequest(request, response) {
         if (events.length > MAX_EVENTS) events = events.slice(-MAX_EVENTS);
         await persistEvents();
         sendJson(response, 202, { recorded: true });
+        return;
+    }
+
+    if (pathname === '/api/analytics/insights') {
+        if (request.method !== 'POST') {
+            sendJson(response, 405, { error: 'Método no permitido.' }, { Allow: 'POST' });
+            return;
+        }
+        if (!isValidOrigin(request)) {
+            sendJson(response, 403, { error: 'Origen de solicitud no válido.' });
+            return;
+        }
+        if (!getSession(request)) {
+            sendJson(response, 401, { error: 'Inicia sesión para consultar las estadísticas.' });
+            return;
+        }
+        const body = await readJson(request);
+        const days = Number(body.days);
+        if (![7, 30, 90].includes(days)) {
+            sendJson(response, 400, { error: 'El período seleccionado no es válido.' });
+            return;
+        }
+        const recommendations = await generateRecommendations(analyticsFor(days), days);
+        sendJson(response, 200, { recommendations });
         return;
     }
 

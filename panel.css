@@ -162,6 +162,12 @@ h1 {
     transform: translateY(-1px);
 }
 
+.button:disabled {
+    cursor: wait;
+    opacity: 0.65;
+    transform: none;
+}
+
 .button-primary {
     margin-top: 0.4rem;
     background: #087e8b;
@@ -327,6 +333,48 @@ h1 {
     margin: 0;
     color: #72848a;
     font-size: 0.86rem;
+}
+
+.insights-card {
+    margin-top: 1rem;
+}
+
+.insights-card > .muted {
+    max-width: 760px;
+}
+
+.insights-actions {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.85rem;
+    margin-top: 1rem;
+}
+
+.insights-actions .button {
+    margin-top: 0;
+}
+
+.insights-status {
+    color: #63777e;
+    font-size: 0.84rem;
+}
+
+.insights-result {
+    margin-top: 1rem;
+    border: 1px solid #e0e9eb;
+    border-radius: 0.7rem;
+    background: #f8fbfb;
+    color: #405b63;
+    font-size: 0.9rem;
+    line-height: 1.7;
+    padding: 1rem 1.1rem;
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+}
+
+.insights-card .error:not(:empty) {
+    margin-top: 0.65rem;
 }
 
 .recent-card {

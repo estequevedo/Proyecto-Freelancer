@@ -22,6 +22,10 @@ npm start
 
 Abre `http://localhost:3000` para el sitio y `http://localhost:3000/panel.html` para iniciar sesión en el panel. También puedes acceder al panel desde el enlace «Panel de visitas» del sitio.
 
+## Recomendaciones de visitas con AI Gateway
+
+El panel permite analizar las estadísticas del período seleccionado y pedir recomendaciones concretas a Vercel AI Gateway. Para habilitarlo, configura `AI_GATEWAY_API_KEY` como variable secreta del entorno del servidor. Opcionalmente, configura `AI_GATEWAY_MODEL` con un modelo disponible en AI Gateway; el valor predeterminado es `openai/gpt-4o-mini`. La clave permanece en el servidor y nunca se envía al navegador. El análisis solo comparte métricas agregadas del período, como conteos de visitas, páginas, fuentes, dispositivos y tendencia diaria.
+
 ## Despliegue online en Render
 
 El archivo `render.yaml` configura un servicio Node.js de pago siempre activo, despliegue automático al subir cambios a GitHub, comprobación de estado en `/healthz` y almacenamiento persistente para las estadísticas. Render genera `ADMIN_PASSWORD` como variable secreta; consúltala en la configuración del servicio para iniciar sesión en el panel.
