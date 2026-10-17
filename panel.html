@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, nofollow">
+    <title>Panel privado | Esteban Quevedo</title>
+    <link rel="stylesheet" href="panel.css">
+    <script src="panel.js" defer></script>
+</head>
+<body>
+    <main class="panel-shell">
+        <header class="panel-header">
+            <a class="brand" href="/" aria-label="Volver al sitio">EQ <span>Panel privado</span></a>
+            <a class="back-link" href="/">Volver al sitio</a>
+        </header>
+
+        <section id="login-view" class="login-card" aria-labelledby="login-title" hidden>
+            <div class="eyebrow">Acceso de administrador</div>
+            <h1 id="login-title">Inicia sesión</h1>
+            <p class="muted">Este panel es privado. Ingresa la contraseña de administrador para consultar las visitas e interacciones.</p>
+            <form id="login-form">
+                <label for="password">Contraseña</label>
+                <input id="password" name="password" type="password" autocomplete="current-password" required minlength="16" aria-describedby="login-error">
+                <p id="login-error" class="error" role="alert" aria-live="polite"></p>
+                <button class="button button-primary" type="submit">Acceder al panel</button>
+            </form>
+            <p class="login-note">Las credenciales se configuran en el servidor y no se guardan en esta página.</p>
+        </section>
+
+        <section id="dashboard-view" hidden>
+            <div class="dashboard-heading">
+                <div>
+                    <div class="eyebrow">Resumen de actividad</div>
+                    <h1>Visitas e interacciones</h1>
+                    <p class="muted">Datos registrados de forma agregada, sin guardar direcciones IP ni contenido de formularios.</p>
+                </div>
+                <button id="logout-button" class="button button-quiet" type="button">Cerrar sesión</button>
+            </div>
+
+            <div class="toolbar">
+                <label for="period">Período</label>
+                <select id="period">
+                    <option value="7">Últimos 7 días</option>
+                    <option value="30">Últimos 30 días</option>
+                    <option value="90">Últimos 90 días</option>
+                </select>
+                <button id="refresh-button" class="button button-secondary" type="button">Actualizar</button>
+                <span id="updated-at" class="updated-at" aria-live="polite"></span>
+            </div>
+
+            <p id="dashboard-error" class="error" role="alert" aria-live="polite"></p>
+            <section class="metrics" aria-label="Métricas del período">
+                <article class="metric-card"><span>Visitas a páginas</span><strong id="page-views">—</strong></article>
+                <article class="metric-card"><span>Interacciones</span><strong id="interactions">—</strong></article>
+            </section>
+
+            <div class="reports-grid">
+                <section class="report-card">
+                    <h2>Visitas por día</h2>
+                    <div id="daily-list" class="simple-list"></div>
+                </section>
+                <section class="report-card">
+                    <h2>Páginas visitadas</h2>
+                    <div id="pages-list" class="simple-list"></div>
+                </section>
+                <section class="report-card">
+                    <h2>Fuentes de tráfico</h2>
+                    <div id="sources-list" class="simple-list"></div>
+                </section>
+                <section class="report-card">
+                    <h2>Dispositivos</h2>
+                    <div id="devices-list" class="simple-list"></div>
+                </section>
+            </div>
+
+            <section class="report-card recent-card">
+                <h2>Actividad reciente</h2>
+                <div class="table-wrap">
+                    <table>
+                        <thead><tr><th>Acción</th><th>Página</th><th>Dispositivo</th><th>Fecha y hora</th></tr></thead>
+                        <tbody id="recent-events"></tbody>
+                    </table>
+                </div>
+                <p id="empty-recent" class="empty-state" hidden>No hay actividad registrada en este período.</p>
+            </section>
+            <p class="privacy-note">Las estadísticas se recopilan en este servidor. No se registran IP, datos ingresados en formularios ni identificadores publicitarios.</p>
+        </section>
+    </main>
+</body>
+</html>
