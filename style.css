@@ -427,6 +427,91 @@ footer p {
     font-weight: 400;
 }
 
+.web-value-section,
+.web-social-section {
+    grid-column: 1 / -1;
+}
+
+main > section.web-value-section,
+main > section.web-social-section {
+    padding: clamp(2.2rem, 4vw, 3.2rem);
+    text-align: left;
+}
+
+main > section.web-value-section {
+    background: #e7f1f2;
+}
+
+main > section.web-social-section {
+    background: #fff;
+}
+
+main > section.web-value-section h2,
+main > section.web-social-section h2 {
+    margin: 0 0 0.8rem;
+    color: #173b46;
+    font-size: clamp(2.2rem, 3vw, 2.8rem);
+    line-height: 1.25;
+    text-align: center;
+}
+
+main > section.web-value-section .web-value-intro,
+main > section.web-social-section .web-social-intro {
+    max-width: 78rem;
+    margin: 0 auto 2rem;
+    color: #536870;
+    font-size: 1.5rem;
+    line-height: 1.8;
+    text-align: center;
+}
+
+.web-benefits-grid,
+.web-social-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1.4rem;
+}
+
+.web-benefit,
+.web-social-card {
+    padding: 1.8rem;
+    border: 1px solid #d6e4e6;
+    border-radius: 1rem;
+    background: #fff;
+}
+
+.web-benefit h3,
+.web-social-card h3 {
+    margin: 0 0 0.7rem;
+    color: #087e8b;
+    font-size: 1.8rem;
+}
+
+main > section.web-value-section .web-benefit p,
+main > section.web-social-section .web-social-card p {
+    margin: 0;
+    color: #536870;
+    font-size: 1.4rem;
+    line-height: 1.75;
+}
+
+.web-social-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.web-social-card {
+    background: #f8fbfb;
+}
+
+main > section.web-social-section .web-social-conclusion {
+    max-width: 78rem;
+    margin: 1.6rem auto 0;
+    color: #25444c;
+    font-size: 1.45rem;
+    font-weight: 700;
+    text-align: center;
+}
+
 @media (max-width: 680px) {
     header {
         padding: 2.8rem 1.6rem 2.2rem;
@@ -469,6 +554,16 @@ footer p {
     main > section,
     main > section:last-child {
         padding: 2.2rem;
+    }
+
+    .web-benefits-grid,
+    .web-social-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .web-benefit,
+    .web-social-card {
+        padding: 1.5rem;
     }
 
     fieldset {
