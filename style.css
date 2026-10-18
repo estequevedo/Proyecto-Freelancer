@@ -179,17 +179,17 @@ main > section {
     box-shadow: 0 0.8rem 2.4rem rgb(27 61 70 / 6%);
 }
 
-main > section:not(:last-child) {
+main > section:not(:last-child):not(.project-advisor) {
     text-align: center;
 }
 
-main > section:not(:last-child) h3 {
+main > section:not(:last-child):not(.project-advisor) h3 {
     margin: 0 0 1rem;
     color: #087e8b;
     font-size: 2.1rem;
 }
 
-main > section:not(:last-child) p {
+main > section:not(:last-child):not(.project-advisor) p {
     margin: 1.4rem 0 0;
     color: #536870;
     font-size: 1.45rem;
@@ -197,8 +197,130 @@ main > section:not(:last-child) p {
     text-align: left;
 }
 
-main > section:not(:last-child) svg {
+main > section:not(:last-child):not(.project-advisor) svg {
     color: #168b78;
+}
+
+main > section.project-advisor {
+    grid-column: 1 / -1;
+    padding: clamp(2.2rem, 4vw, 3.2rem);
+    text-align: left;
+}
+
+main > section.project-advisor h3 {
+    margin: 0 0 0.8rem;
+    color: #087e8b;
+    font-size: clamp(2.1rem, 3vw, 2.7rem);
+    text-align: center;
+}
+
+main > section.project-advisor .project-advisor-intro {
+    max-width: 76rem;
+    margin: 0 auto 2rem;
+    color: #536870;
+    font-size: 1.5rem;
+    text-align: center;
+}
+
+.project-advisor-form {
+    display: grid;
+    max-width: 76rem;
+    margin: 0 auto;
+    gap: 1.5rem;
+}
+
+.project-field {
+    display: grid;
+    gap: 0.5rem;
+}
+
+.project-field label {
+    color: #25444c;
+    font-size: 1.45rem;
+    font-weight: 700;
+}
+
+.project-field textarea,
+.project-field select {
+    width: 100%;
+    border: 1px solid #c6d9dc;
+    border-radius: 0.7rem;
+    background: #fbfdfd;
+    color: #19313a;
+    font: inherit;
+    padding: 1rem 1.2rem;
+}
+
+.project-field textarea {
+    min-height: 14rem;
+    resize: vertical;
+}
+
+.project-field textarea:focus,
+.project-field select:focus {
+    border-color: #087e8b;
+    box-shadow: 0 0 0 3px rgb(8 126 139 / 14%);
+    outline: none;
+}
+
+.project-field small {
+    color: #63777e;
+    font-size: 1.25rem;
+    line-height: 1.6;
+}
+
+.project-advisor-button {
+    width: fit-content;
+    max-width: 100%;
+    border: 0;
+    border-radius: 0.7rem;
+    background: #087e8b;
+    color: #fff;
+    cursor: pointer;
+    font: inherit;
+    font-size: 1.45rem;
+    font-weight: 700;
+    padding: 1.1rem 1.8rem;
+    transition: background-color 180ms ease, transform 180ms ease;
+}
+
+.project-advisor-button:hover,
+.project-advisor-button:focus-visible {
+    transform: translateY(-1px);
+    background: #075e68;
+    outline: none;
+}
+
+.project-advisor-button:disabled {
+    cursor: wait;
+    opacity: 0.65;
+    transform: none;
+}
+
+.project-advisor-status,
+.project-advisor-error {
+    margin: 0;
+    font-size: 1.35rem;
+}
+
+.project-advisor-status {
+    color: #536870;
+}
+
+.project-advisor-error {
+    color: #b42318;
+}
+
+.project-advisor-result {
+    border: 1px solid #c6d9dc;
+    border-radius: 0.9rem;
+    background: #f3f8f8;
+    color: #25444c;
+    font-size: 1.45rem;
+    line-height: 1.8;
+    padding: 1.6rem;
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
 }
 
 main > section:last-child {
@@ -339,7 +461,8 @@ footer p {
     }
 
     main > h2,
-    main > section:last-child {
+    main > section:last-child,
+    main > section.project-advisor {
         grid-column: 1;
     }
 
@@ -355,6 +478,10 @@ footer p {
 
     fieldset div:nth-last-of-type(1) {
         grid-column: 1;
+    }
+
+    .project-advisor-button {
+        width: 100%;
     }
 }
 

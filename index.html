@@ -92,6 +92,40 @@
             <p>Utut ex et a ugue eleifend aliquam. Fusce suscipit posuere augue, ac ultricies elit feugiat vel. Quisque venenatis nunc in nibh sollicitudin, vel sodales enim bibendum. Donec eleifend commodo leo vitae imperdiet. Quisque mauris urna, egestas sit amet justo quis, hendrerit vehicula massa. Phasellus eget sapien neque. Morbi maximus elit ac libero dapibus sodales. Nunc at enim justo. Proin pellentesque dui lorem, non imperdiet dui cursus at. Nulla vulputate turpis odio. Cras a pulvinar orci. Praesent efficitur ex quam, id porttitor leo posuere eu.</p>
         </section>
 
+        <section class="project-advisor" aria-labelledby="project-advisor-title">
+            <h3 id="project-advisor-title">Recibí una orientación para tu proyecto</h3>
+            <p class="project-advisor-intro">Contame qué querés crear y qué necesitás lograr. La IA te sugerirá los servicios que podrían encajar y algunos próximos pasos para avanzar.</p>
+            <form id="project-advisor-form" class="project-advisor-form">
+                <div class="project-field">
+                    <label for="project-description">Describí tu proyecto</label>
+                    <textarea id="project-description" name="description" required minlength="20" maxlength="3000" rows="6" placeholder="Por ejemplo: necesito una web para presentar mi estudio, mostrar mis servicios y recibir consultas."></textarea>
+                    <small>Incluí qué ofrecés, a quién querés llegar y cualquier detalle que ayude a entender tu idea. No compartas datos personales ni información confidencial.</small>
+                </div>
+                <div class="project-field">
+                    <label for="project-goal">¿Qué te gustaría lograr?</label>
+                    <select id="project-goal" name="goal">
+                        <option value="presencia">Presentar mi negocio o servicio</option>
+                        <option value="consultas">Recibir más consultas</option>
+                        <option value="ventas">Vender productos o servicios online</option>
+                        <option value="automatizacion">Facilitar una tarea o proceso</option>
+                        <option value="otro">Otro objetivo</option>
+                    </select>
+                </div>
+                <div class="project-field">
+                    <label for="project-stage">¿En qué etapa estás?</label>
+                    <select id="project-stage" name="stage">
+                        <option value="idea">Tengo una idea inicial</option>
+                        <option value="inicio">Estoy empezando</option>
+                        <option value="existente">Ya tengo un negocio o sitio</option>
+                    </select>
+                </div>
+                <button class="project-advisor-button" type="submit">Recomendar servicios y próximos pasos</button>
+                <p id="project-advisor-status" class="project-advisor-status" role="status" aria-live="polite"></p>
+                <p id="project-advisor-error" class="project-advisor-error" role="alert" aria-live="assertive"></p>
+                <div id="project-advisor-result" class="project-advisor-result" aria-live="polite" hidden></div>
+            </form>
+        </section>
+
         <section aria-labelledby="Ancla1">
             <h3 id="Ancla1">Contacto</h3>
             <form>
@@ -122,5 +156,6 @@
     <footer>
         <p id="ancla">Todos los derechos reservados. Esteban Quevedo Freelancer ©</p>
     </footer>
+    <script src="project-advisor.js" defer></script>
 </body>
 </html>
