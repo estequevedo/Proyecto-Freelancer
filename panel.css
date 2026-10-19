@@ -228,7 +228,7 @@ h1 {
     min-height: 4.2rem;
     align-items: center;
     gap: 0.75rem;
-    margin-bottom: 1rem;
+    margin-bottom: 0.45rem;
     padding: 0.7rem 0.9rem;
     border: 1px solid #e0e9eb;
     border-radius: 0.85rem;
@@ -244,6 +244,34 @@ h1 {
     margin-left: auto;
     color: #72848a;
     font-size: 0.78rem;
+}
+
+.export-actions {
+    display: flex;
+    flex-basis: 100%;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.55rem;
+    border-top: 1px solid #edf1f2;
+    padding-top: 0.65rem;
+}
+
+.export-actions .button {
+    min-height: 2.45rem;
+    font-size: 0.8rem;
+    padding: 0.5rem 0.75rem;
+}
+
+.export-help,
+.export-status {
+    margin: 0 0 0.65rem;
+    color: #72848a;
+    font-size: 0.78rem;
+    line-height: 1.5;
+}
+
+.export-status:not(:empty) {
+    color: #087e8b;
 }
 
 .metrics {
@@ -448,6 +476,14 @@ tbody tr:last-child td {
     .updated-at {
         flex-basis: 100%;
         margin-left: 0;
+    }
+
+    .export-actions {
+        align-items: stretch;
+    }
+
+    .export-actions .button {
+        flex: 1 1 100%;
     }
 
     .reports-grid {

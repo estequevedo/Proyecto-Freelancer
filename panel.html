@@ -48,7 +48,14 @@
                 </select>
                 <button id="refresh-button" class="button button-secondary" type="button">Actualizar</button>
                 <span id="updated-at" class="updated-at" aria-live="polite"></span>
+                <div class="export-actions" role="group" aria-label="Exportar resultados">
+                    <button id="export-excel-button" class="button button-secondary" type="button" disabled>Descargar para Excel</button>
+                    <button id="export-sheets-button" class="button button-secondary" type="button" disabled>CSV para Google Sheets</button>
+                    <button id="export-pdf-button" class="button button-secondary" type="button" disabled>Guardar como PDF</button>
+                </div>
             </div>
+            <p class="export-help">Las descargas incluyen el resumen, visitas diarias, páginas, fuentes, dispositivos y actividad reciente del período. Para Google Sheets, importa el archivo CSV descargado.</p>
+            <p id="export-status" class="export-status" role="status" aria-live="polite"></p>
 
             <p id="dashboard-error" class="error" role="alert" aria-live="polite"></p>
             <section class="metrics" aria-label="Métricas del período">
